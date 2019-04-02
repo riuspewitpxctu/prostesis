@@ -61,27 +61,39 @@ float leer_temperatura(){ sensors.requestTemperatures();
 //Necesitas 4 transistores 2n2222
 //Creo..
 
-
-float matriz_output = { colocar aquí todos las etiquetas }
-
-
-
-
+byte Digit[10][8] =
+  {  { 1,1,1,1,1,1,0,0 },    // 0
+     { 0,1,1,0,0,0,0,0 },    // 1
+     { 1,1,0,1,1,0,1,0 },    // 2
+     { 1,1,1,1,0,0,1,0 },    // 3
+     { 0,0,1,0,0,1,1,0 },    // 4    
+     { 1,0,1,1,0,1,1,0 },    // 5
+     { 1,0,1,1,1,1,1,0 },    // 6
+     { 1,1,1,0,0,0,0,0 },    // 7
+     { 1,1,1,1,1,1,1,0 },    // 8
+     { 1,1,1,0,0,1,1,0 }     // 9
+   };
+   
+//datos para un setup iterado
+int matriz_output[10] = { colocar aquí todos las etiquetas }
+int matriz_input[10] = { colocar aquí todos las etiquetas }
 
 void setup(){
 
-//Esto inicializa el sensor de temperatura
-    // Iniciamos la comunicación serial
     Serial.begin(9600);
-    // Iniciamos el bus 1-Wire
+    
     sensorDS18B20.begin();
 
+    for (int i=0; i<11; i++)
+       pinMode(i, OUTPUT);
+    for (int i=0; i<11; i++)
+       pinMode(i, INPUT);
  
 }
 
 void loop(){
 
-    
+    temperatura_actual = leer_temperatura()
 
 
 }
