@@ -191,6 +191,9 @@ void nueve(){      digitalWrite(pinA, 0);
                          digitalWrite(pinF, LOW);
                          digitalWrite(pinG, LOW);
                          digitalWrite(dp, HIGH);}
+			 
+float matriz_output = { colocar aquí todos las etiquetas }
+
 
 void ActivarDigito(int x){
   digitalWrite(D1, LOW);
