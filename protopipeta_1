@@ -16,13 +16,14 @@ const int pinD = 10;
 const int pinE = 10;
 const int pinF = 10;
 const int pinG = 10;
-const int dp = 10;
-const int Digito1 = 10;
+const int pinp = 10;
+
+const int Digito1 = 10;  // el primero a la izquierda
 const int Digito2 = 10;
 const int Digito3 = 10;
-const int Digito4 = 10;
+const int Digito4 = 10;  //necesitan resistencias de 330
 
-//pin de datos del sensor de temperatura
+//pin de datos del sensor de temperatura 0
 const int pinDS18B20 = 10;         
 
 //pines del teclado
@@ -96,28 +97,28 @@ float leer_temperatura(){ sensors.requestTemperatures();
                           float temperatura = sensors.getTempCByIndex(0);
                           return temperatura};
                           
-void mostrar(int pos, int N)
-{  digitalWrite(9 ,LOW);      // Apaga todos los digitos
-   digitalWrite(10,LOW);
-   digitalWrite(11,LOW);
-   digitalWrite(12,LOW);      
+void mostrar(int posicion, int Numero)
+{  digitalWrite(Digito1,LOW);      // Apaga todos los digitos
+   digitalWrite(Digito2,LOW);
+   digitalWrite(Digito3,LOW);
+   digitalWrite(Digito4,LOW);      
   
     for (int i= 0 ; i<8 ; i++)
-             digitalWrite(i+2 , Digit[N][i]) ;
+             digitalWrite(i+2 , Digit[Numero][i]) ;
   
-   digitalWrite(pos + 9, HIGH); // Enciende el digito pos
+   digitalWrite(posicion, HIGH); // Enciende el digito indicado
    //delay(1);
 }
 
-void CalculaDigitos( int Num)
+void mostrar_numero( int Num )
 {
-  int Digit0 = Num %10 ;
-  int Digit1 = (Num % 100) / 10 ;
-  int Digit2 = (Num % 1000) / 100 ;
-  int Digit3 = Num / 1000 ;
+  int cifra1 = Num/1000;
+  int cifra2 = (Num%1000)/100;
+  int cifra3 = (Num%100)/10;
+  int cifra4 = Num%10;
   
-  mostrar(3 , Digit3);
-  mostrar(2 , Digit2);
-  mostrar(1 , Digit1);
-  mostrar(0 , Digit0);
+  mostrar(Digito1 , cifra1);
+  mostrar(Digito2 , cifra2);
+  mostrar(Digito3 , cifra3);
+  mostrar(Digito4 , cifra4);
 }
