@@ -48,15 +48,6 @@ DallasTemperature sensor.DS18B20(&SensorTemperatura)
 // Instancia a la clase Keypad
 Keypad teclado = Keypad(makeKeymap(keys), pinFila, pinColumna, 4, 4);
 
-int T = 5;
-int i = 0;
-float temperatura_actual = 0;     // Aquí se guardará la temperatura segundo a segundo
-
-//ATENCION
-//Necesitas 4 RESISTENCIAS DE 330ohm//tal vez solo esto
-//Necesitas 4 transistores 2n2222
-//Creo..
-
 byte Digit[10][8] =
   {  { 1,1,1,1,1,1,0,0 },    // 0
      { 0,1,1,0,0,0,0,0 },    // 1
@@ -69,7 +60,12 @@ byte Digit[10][8] =
      { 1,1,1,1,1,1,1,0 },    // 8
      { 1,1,1,0,0,1,1,0 }     // 9
    };
-   
+
+int T = 5;
+int i = 0;
+float temperatura_actual = 0;     // Aquí se guardará la temperatura segundo a segundo
+
+
 //datos para un setup iterado
 int matriz_output[10] = { colocar aquí todos las 10 etiquetas }
 int matriz_input[10] = { colocar aquí todos las 10 etiquetas }
@@ -79,20 +75,20 @@ void setup(){
     Serial.begin(9600);
     sensorDS18B20.begin();
 
-    for (int i=0; i<11; i++)
-       pinMode(i, OUTPUT);
-    for (int i=0; i<11; i++)
-       pinMode(i, INPUT);
- 
-}
+    for (int i = 0; i<10; i++) 
+      {pinMode(matriz_output[i], OUTPUT)};
+    for (int i = 0; i<10; i++) 
+      {pinMode(matriz_input[i], INPUT)};
+    
+    }
 
 void loop(){
 
-    temperatura_actual = leer_temperatura()
-
+    temperatura_actual = leer_temperatura();
+    mostrar_numero(int(Num));
 }
 
-// Esto devuelve la temperatura del [sensor etiquetado con 0]
+//Temperatura del [sensor etiquetado con 0]
 float leer_temperatura(){ sensors.requestTemperatures();
                           float temperatura = sensors.getTempCByIndex(0);
                           return temperatura};
@@ -110,7 +106,7 @@ void mostrar(int posicion, int Numero)
    //delay(1);
 }
 
-void mostrar_numero( int Num )
+void mostrar_numero(int Num)
 {
   int cifra1 = Num/1000;
   int cifra2 = (Num%1000)/100;
