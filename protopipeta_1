@@ -4,13 +4,12 @@
 #include <DallasTemperature.h>
 #include <Keypad.h>
 
-//Lugar de pines de los electrónicos
+const int pinRelay1 = 10; //pin del peltier+cooler
+const int pinRelay2 = 10; //pin de la bomba alimentadora
+const int pinRelay3 = 10; //pin de la bomba expendedora
 
-const int pinRelay1 = 10;             //pin del peltier+cooler
-const int pinRelay2 = 10;             //pin de la bomba alimentadora
-const int pinRelay3 = 10;             //pin de la bomba expendedora
-
-const int pinA = 10;                     //pines del display
+//pines del display
+const int pinA = 10;                     
 const int pinB = 10;
 const int pinC = 10;
 const int pinD = 10;
@@ -18,26 +17,29 @@ const int pinE = 10;
 const int pinF = 10;
 const int pinG = 10;
 const int dp = 10;
-const int D1 = 10;                        //?para saber cosas del display
+//?para saber cosas del display
+const int D1 = 10;
 const int D2 = 10;
 const int D3 = 10;
 const int D4 = 10;
 
-const int pinDS18B20 = 10;         //pin de datos del sensor de temperatura
+//pin de datos del sensor de temperatura
+const int pinDS18B20 = 10;         
 
-const int pinMatriz1 = 10;           //pines del teclado
+//pines del teclado
+const int pinMatriz1 = 10;           
 const int pinMatriz2 = 10;
 const int pinMatriz3 = 10;
 const int pinMatriz4 = 10;
 const int pinMatriz5 = 10;
 const int pinMatriz6 = 10;
 const int pinMatriz7 = 10;
-const int pinMatriz8 = 10;           //?Atte
+const int pinMatriz8 = 10; //?Atte
 
 //Declarando el teclado matriz
-byte pinFila[4]              = {pinMatriz1, pinMatriz2, pinMatriz3, pinMatriz4};
-byte pinColumna[4]     = {pinMatriz5, pinMatriz6, pinMatriz7, pinMatriz8};          //pinMatriz8 es el pin que está más cerca a las letras físicamente
-char keys [4][4]            = {{ '1','2','3','A' },{ '4','5','6','B' },{ '7','8','9','C' },{ '*','0','#','D' }};
+byte pinFila[4]    = {pinMatriz1, pinMatriz2, pinMatriz3, pinMatriz4};
+byte pinColumna[4] = {pinMatriz5, pinMatriz6, pinMatriz7, pinMatriz8}; //pinMatriz8 es el pin que está más cerca a las letras
+char keys [4][4]   = {{'1','2','3','A'},{'4','5','6','B'},{'7','8','9','C'},{'*','0','#','D'}};
 
 // Instancia a las clases OneWire y DallasTemperature
 OneWire SensorTemperatura(pinDS18B30);
@@ -46,18 +48,16 @@ DallasTemperature sensor.DS18B20(&SensorTemperatura)
 // Instancia a la clase Keypad
 Keypad teclado = Keypad(makeKeymap(keys), pinFila, pinColumna, 4, 4);
 
-int T=5;
+int T = 5;
 int i = 0;
 float temperatura_actual = 0;     // Aquí se guardará la temperatura segundo a segundo
 
 
 
-// Esto devuelve la temperatura del sensor etiquetado con 0
-float temp_actual(){     sensors.requestTemperatures();
-                                   float temperatura = sensors.getTempCByIndex(0);
-                                   return temperatura};
-
-// Esta sección es para que el display muestre numeros
+// Esto devuelve la temperatura del [sensor etiquetado con 0]
+float leer_temperatura(){ sensors.requestTemperatures();
+                          float temperatura = sensors.getTempCByIndex(0);
+                          return temperatura};
 
 //ATENCION
 //Necesitas 4 RESISTENCIAS DE 330ohm
