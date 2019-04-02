@@ -51,11 +51,6 @@ int T = 5;
 int i = 0;
 float temperatura_actual = 0;     // Aquí se guardará la temperatura segundo a segundo
 
-// Esto devuelve la temperatura del [sensor etiquetado con 0]
-float leer_temperatura(){ sensors.requestTemperatures();
-                          float temperatura = sensors.getTempCByIndex(0);
-                          return temperatura};
-
 //ATENCION
 //Necesitas 4 RESISTENCIAS DE 330ohm//tal vez solo esto
 //Necesitas 4 transistores 2n2222
@@ -75,13 +70,12 @@ byte Digit[10][8] =
    };
    
 //datos para un setup iterado
-int matriz_output[10] = { colocar aquí todos las etiquetas }
-int matriz_input[10] = { colocar aquí todos las etiquetas }
+int matriz_output[10] = { colocar aquí todos las 10 etiquetas }
+int matriz_input[10] = { colocar aquí todos las 10 etiquetas }
 
 void setup(){
 
     Serial.begin(9600);
-    
     sensorDS18B20.begin();
 
     for (int i=0; i<11; i++)
@@ -95,5 +89,35 @@ void loop(){
 
     temperatura_actual = leer_temperatura()
 
+}
 
+// Esto devuelve la temperatura del [sensor etiquetado con 0]
+float leer_temperatura(){ sensors.requestTemperatures();
+                          float temperatura = sensors.getTempCByIndex(0);
+                          return temperatura};
+                          
+void mostrar(int pos, int N)
+{  digitalWrite(9 ,LOW);      // Apaga todos los digitos
+   digitalWrite(10,LOW);
+   digitalWrite(11,LOW);
+   digitalWrite(12,LOW);      
+  
+    for (int i= 0 ; i<8 ; i++)
+             digitalWrite(i+2 , Digit[N][i]) ;
+  
+   digitalWrite(pos + 9, HIGH); // Enciende el digito pos
+   //delay(1);
+}
+
+void CalculaDigitos( int Num)
+{
+  int Digit0 = Num %10 ;
+  int Digit1 = (Num % 100) / 10 ;
+  int Digit2 = (Num % 1000) / 100 ;
+  int Digit3 = Num / 1000 ;
+  
+  mostrar(3 , Digit3);
+  mostrar(2 , Digit2);
+  mostrar(1 , Digit1);
+  mostrar(0 , Digit0);
 }
