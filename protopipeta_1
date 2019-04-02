@@ -9,7 +9,7 @@ const int pinRelay2 = 10; //pin de la bomba alimentadora
 const int pinRelay3 = 10; //pin de la bomba expendedora
 
 //pines del display
-const int pinA = 10;                     
+const int pinA = 10;
 const int pinB = 10;
 const int pinC = 10;
 const int pinD = 10;
@@ -43,12 +43,12 @@ char keys [4][4]   = {{'1','2','3','A'},{'4','5','6','B'},{'7','8','9','C'},{'*'
 
 // Instancia a las clases OneWire y DallasTemperature
 OneWire SensorTemperatura(pinDS18B30);
-DallasTemperature sensor.DS18B20(&SensorTemperatura)
+DallasTemperature sensor.DS18B20(&SensorTemperatura);
 
 // Instancia a la clase Keypad
 Keypad teclado = Keypad(makeKeymap(keys), pinFila, pinColumna, 4, 4);
 
-byte Digit[10][8] =
+byte escribir_sin_pun[10][8] =
   {  { 1,1,1,1,1,1,0,0 },    // 0
      { 0,1,1,0,0,0,0,0 },    // 1
      { 1,1,0,1,1,0,1,0 },    // 2
@@ -60,6 +60,18 @@ byte Digit[10][8] =
      { 1,1,1,1,1,1,1,0 },    // 8
      { 1,1,1,0,0,1,1,0 }     // 9
    };
+ byte escribir_con_pun[10][8] =
+  {  { 1,1,1,1,1,1,0,1 },    // 0.
+     { 0,1,1,0,0,0,0,1 },    // 1.
+     { 1,1,0,1,1,0,1,1 },    // 2.
+     { 1,1,1,1,0,0,1,1 },    // 3.
+     { 0,0,1,0,0,1,1,1 },    // 4.   
+     { 1,0,1,1,0,1,1,1 },    // 5.
+     { 1,0,1,1,1,1,1,1 },    // 6.
+     { 1,1,1,0,0,0,0,1 },    // 7.
+     { 1,1,1,1,1,1,1,1 },    // 8.
+     { 1,1,1,0,0,1,1,1 }     // 9.
+   };
 
 int T = 5;
 int i = 0;
@@ -67,8 +79,9 @@ float temperatura_actual = 0;     // Aquí se guardará la temperatura segundo a
 
 
 //datos para un setup iterado
-int matriz_output[10] = { colocar aquí todos las 10 etiquetas }
-int matriz_input[10] = { colocar aquí todos las 10 etiquetas }
+int lista_segmentos[8] = { pinA, pinB, pinC, pinD, pinE, pinF, pinG, pinp };
+int lista_output[10] = { colocar aquí todos las 10 etiquetas }
+int lista_input[10] = { colocar aquí todos las 10 etiquetas }
 
 void setup(){
 
@@ -76,9 +89,11 @@ void setup(){
     sensorDS18B20.begin();
 
     for (int i = 0; i<10; i++) 
-      {pinMode(matriz_output[i], OUTPUT)};
+      {pinMode(lista_segmentos[i], OUTPUT)};
     for (int i = 0; i<10; i++) 
-      {pinMode(matriz_input[i], INPUT)};
+      {pinMode(lista_output[i], OUTPUT)};
+    for (int i = 0; i<10; i++) 
+      {pinMode(lista_input[i], INPUT)};
     
     }
 
@@ -94,19 +109,20 @@ float leer_temperatura(){ sensors.requestTemperatures();
                           return temperatura};
                           
 void mostrar(int posicion, int Numero)
-{  digitalWrite(Digito1,LOW);      // Apaga todos los digitos
+{  digitalWrite(Digito1,LOW);    // Apaga todos los digitos
    digitalWrite(Digito2,LOW);
    digitalWrite(Digito3,LOW);
-   digitalWrite(Digito4,LOW);      
+   digitalWrite(Digito4,LOW);
   
-    for (int i= 0 ; i<8 ; i++)
-             digitalWrite(i+2 , Digit[Numero][i]) ;
-  
+  if (posicion == 2) { for (int i= 0 ; i<8 ; i++)
+                         digitalWrite(lista_segmentos[i] , escribir_con_pun[Numero][i]) };
+  else { for (int i= 0 ; i<8 ; i++)
+           digitalWrite(lista_segmentos[i] , escribir_sin_pun[Numero][i]) };
+     
    digitalWrite(posicion, HIGH); // Enciende el digito indicado
-   //delay(1);
 }
 
-void mostrar_numero(int Num)
+void mostrar_numero(Num)
 {
   int cifra1 = Num/1000;
   int cifra2 = (Num%1000)/100;
