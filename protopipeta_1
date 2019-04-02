@@ -17,11 +17,10 @@ const int pinE = 10;
 const int pinF = 10;
 const int pinG = 10;
 const int dp = 10;
-//?para saber cosas del display
-const int D1 = 10;
-const int D2 = 10;
-const int D3 = 10;
-const int D4 = 10;
+const int Digito1 = 10;
+const int Digito2 = 10;
+const int Digito3 = 10;
+const int Digito4 = 10;
 
 //pin de datos del sensor de temperatura
 const int pinDS18B20 = 10;         
@@ -52,242 +51,21 @@ int T = 5;
 int i = 0;
 float temperatura_actual = 0;     // Aquí se guardará la temperatura segundo a segundo
 
-
-
 // Esto devuelve la temperatura del [sensor etiquetado con 0]
 float leer_temperatura(){ sensors.requestTemperatures();
                           float temperatura = sensors.getTempCByIndex(0);
                           return temperatura};
 
 //ATENCION
-//Necesitas 4 RESISTENCIAS DE 330ohm
+//Necesitas 4 RESISTENCIAS DE 330ohm//tal vez solo esto
 //Necesitas 4 transistores 2n2222
 //Creo..
 
-// (1 es apagado y 0 es prendido)
-void punto(){      digitalWrite(pinA, 1);
-                                 digitalWrite(pinB, 1);
-                                 digitalWrite(pinC, 1);
-                                 digitalWrite(pinD, 1);
-                                 digitalWrite(pinE, 1);
-                                 digitalWrite(pinF, 1);
-                                 digitalWrite(pinG, 1);
-                                 digitalWrite(dp, 0);
-                                 delay(T);}
-void cero(){         digitalWrite(pinA, 0);
-                                 digitalWrite(pinB, 0);
-                                 digitalWrite(pinC, 0);
-                                 digitalWrite(pinD, 0);
-                                 digitalWrite(pinE, 0);
-                                 digitalWrite(pinF, 0);
-                                 digitalWrite(pinG, 1);
-                                 digitalWrite(dp, 1);
-                                 delay(T);}
-void uno(){          digitalWrite(pinA, 1);
-                                 digitalWrite(pinB, 0);
-                                 digitalWrite(pinC, 0);
-                                 digitalWrite(pinD, 1);
-                                 digitalWrite(pinE, 1);
-                                 digitalWrite(pinF, 1);
-                                 digitalWrite(pinG, 1);
-                                 digitalWrite(dp, 1);
-                                 delay(T);}
-void dos(){           digitalWrite(pinA, 0);
-                                 digitalWrite(pinB, 0);
-                                 digitalWrite(pinC, 1);
-                                 digitalWrite(pinD, 0);
-                                 digitalWrite(pinE, 0);
-                                 digitalWrite(pinF, 1);
-                                 digitalWrite(pinG, 0);
-                                 digitalWrite(dp, 1);
-                                 delay(T);}
-void tres(){           digitalWrite(pinA, 0);
-                                 digitalWrite(pinB, 0);
-                                 digitalWrite(pinC, 0);
-                                 digitalWrite(pinD, 0);
-                                 digitalWrite(pinE, 1);
-                                 digitalWrite(pinF, 1);
-                                 digitalWrite(pinG, 0);
-                                 digitalWrite(dp, 1);
-                                 delay(T);}
-void cuatro(){     digitalWrite(pinA, 1);
-                                 digitalWrite(pinB, 0);
-                                 digitalWrite(pinC, 0);
-                                 digitalWrite(pinD, 1);
-                                 digitalWrite(pinE, 1);
-                                 digitalWrite(pinF, 0);
-                                 digitalWrite(pinG, 0);
-                                 digitalWrite(dp, 1);
-                                 delay(T);}
-void cinco(){        digitalWrite(pinA, 0);
-                                 digitalWrite(pinB, 1);
-                                 digitalWrite(pinC, 0);
-                                 digitalWrite(pinD, 0);
-                                 digitalWrite(pinE, 1);
-                                 digitalWrite(pinF, 0);
-                                 digitalWrite(pinG, 0);
-                                 digitalWrite(dp, 1);
-                                 delay(T);}
-void seis(){           digitalWrite(pinA, 0);
-                                 digitalWrite(pinB, 1);
-                                 digitalWrite(pinC, 0);
-                                 digitalWrite(pinD, 0);
-                                 digitalWrite(pinE, 0);
-                                 digitalWrite(pinF, 1);
-                                 digitalWrite(pinG, 0);
-                                 digitalWrite(dp, 1);
-                                 delay(T);}
-void siete(){         digitalWrite(pinA, 0);
-                                 digitalWrite(pinB, 0);
-                                 digitalWrite(pinC, 0);
-                                 digitalWrite(pinD, 1);
-                                 digitalWrite(pinE, 1);
-                                 digitalWrite(pinF, 1);
-                                 digitalWrite(pinG, 1);
-                                 digitalWrite(dp, 1);
-                                 delay(T);}
-void ocho(){        digitalWrite(pinA, 0);
-                                 digitalWrite(pinB, 0);
-                                 digitalWrite(pinC, 0);
-                                 digitalWrite(pinD, 0);
-                                 digitalWrite(pinE, 0);
-                                 digitalWrite(pinF, 0);
-                                 digitalWrite(pinG, 0);
-                                 digitalWrite(dp, 1);
-                                 delay(T);}
-void nueve(){      digitalWrite(pinA, 0);
-                                 digitalWrite(pinB, 0);
-                                 digitalWrite(pinC, 0);
-                                 digitalWrite(pinD, 1);
-                                 digitalWrite(pinE, 1);
-                                 digitalWrite(pinF, 0);
-                                 digitalWrite(pinG, 0);
-                                 digitalWrite(dp, 1);
-                                 delay(T);}
 
-  void A(){     digitalWrite(pinA, LOW);
-                        digitalWrite(pinB, LOW);
-                        digitalWrite(pinC, LOW);
-                        digitalWrite(pinD, HIGH);
-                        digitalWrite(pinE, LOW);
-                        digitalWrite(pinF, LOW);
-                        digitalWrite(pinG, LOW;
-                        digitalWrite(dp, 1);
-                        delay(T);}
-  void B(){    digitalWrite(pinA, HIGH);
-                        digitalWrite(pinB, HIGH);
-                        digitalWrite(pinC, LOW);
-                        digitalWrite(pinD, LOW);
-                        digitalWrite(pinE,LOW);
-                        digitalWrite(pinF, LOW);
-                        digitalWrite(pinG, LOW);
-                        digitalWrite(dp, 1);
-                        delay(T);}
-  void error(){  digitalWrite(pinA, LOW);
-                         digitalWrite(pinB, HIGH);
-                         digitalWrite(pinC, HIGH);
-                         digitalWrite(pinD, LOW);
-                         digitalWrite(pinE, LOW);
-                         digitalWrite(pinF, LOW);
-                         digitalWrite(pinG, LOW);
-                         digitalWrite(dp, HIGH);}
-			 
 float matriz_output = { colocar aquí todos las etiquetas }
 
 
-void ActivarDigito(int x){
-  digitalWrite(D1, LOW);
-  digitalWrite(D2, LOW);
-  digitalWrite(D3, LOW);
-  digitalWrite(D4, LOW); 
-  switch(x){    case 1: digitalWrite(D1, HIGH);
-                      break;
-                     case 2: digitalWrite(D2, HIGH); 
-                      break;
-                     case 3: digitalWrite(D3, HIGH); 
-                      break;
-                     case 4: digitalWrite(D4, HIGH); 
-                      break;
-                     default: break;
-  }
-}
 
-void EscribirDigito(int x){
-  switch(x){
-    case 1: uno();
-      break;
-    case 2: dos();
-      break;
-    case 3: tres();
-      break;
-    case 4: cuatro();
-      break;
-   case 5:  cinco();
-      break;
-   case 6:  seis();
-      break;
-   case 7:  siete();
-      break;
-   case 8:  ocho();
-      break;
-   case 9:  nueve();
-      break;
-   case 0:  cero();
-      break;
-    default:  
-      break;
-  }
-}
-void EscribirCaracter(char x){
-  
-  switch(x){
-    case '1': uno();
-      break;
-    case '2': dos();
-      break;
-    case '3': tres();
-      break;
-    case '4': cuatro();
-      break;
-   case '5': cinco();
-      break;
-   case '6': seis();
-      break;
-   case '7': siete();
-      break;
-   case '8': ocho();
-      break;
-   case '9': nueve();
-      break;
-   case 'A': A();
-      break;
-  case '0': cero();
-      break;
-  case 'E': error();
-      break;
-  case 'B': B();
-			break;     
-  default: break;
-  }
-}
-int decenas(float t){
-  int p = t*10;
-  int decenas = p/100;
-return decenas;
-  
-}
-int unidades(float t){
-  int p = t*10;
-  int unidades = (p/10)%10;
-return unidades;
-  
-}
-int decimales(float t){
-  int p = t*10;
-  int decimales = p%10;
-return decimales;
-  
-}
 
 
 void setup(){
